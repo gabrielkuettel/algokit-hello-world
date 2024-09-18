@@ -29,7 +29,12 @@ def deploy(
         on_update=algokit_utils.OnUpdate.AppendApp,
     )
     name = "Gabriel Kuettel"
-    response = app_client.hello(name=name)
+    response = app_client.hello(
+        name=name,
+        transaction_parameters=algokit_utils.TransactionParameters(
+            boxes=[(app_client.app_id, "greeting")]
+        ),
+    )    
     logger.info(
         f"Called hello on {app_spec.contract.name} ({app_client.app_id}) "
         f"with name={name}, received: {response.return_value}, "
